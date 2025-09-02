@@ -1,0 +1,63 @@
+import {useEffect, useState} from 'react';
+import {base_url, period_days_24} from "../utils/constants.ts";
+
+const Contact = () => {
+    const [planets, setPlanets] = useState(['wait...']);
+
+    const fillPlanets = async function (url:string) {
+        try {
+            const response = await fetch(url);
+            const data:{name:string}[] = await response.json();
+            const planetsResponse = data.map(obj => obj.name);
+            setPlanets(planetsResponse);
+            const info = {
+                payload: planetsResponse,
+                time: Date.now()
+            }
+            localStorage.setItem('planets', JSON.stringify(info));
+        }catch (e) {
+            console.log(e);
+        }
+    }
+
+    useEffect(() => {
+        const planetInfo = JSON.parse(localStorage.getItem("planets")!);
+        if (planetInfo && (Date.now() - planetInfo.time) < period_days_24) {
+            setPlanets(planetInfo.payload);
+        } else {
+            fillPlanets(`${base_url}/v1/planets`)
+        }
+    }, [])
+
+    return (
+        <form className={`w-4/5 my-0 mx-auto rounded-[5px] bg-[#f2f2f2] p-5`} onSubmit={(e) => {
+            e.preventDefault();
+        }}>
+            <label className={`w-full text-red-color`}>First Name
+                <input className={`text-black border w-full p-3 border-[#ccc] rounded-[4px] mt-1.5 mb-4 resize-y`} type="text"
+                       name="firstname" placeholder="Your first name..."/>
+            </label>
+            <label className={`w-full text-red-color`}>Last Name
+                <input className={`text-black border w-full p-3 border-[#ccc] rounded-[4px] mt-1.5 mb-4 resize-y`} type="text"
+                       name="lastname" placeholder="Your last name..."/>
+            </label>
+            <label className={`w-full text-red-color`}>Planet
+                <select className={`border w-full text-black p-3 border-[#ccc] rounded-[4px] mt-1.5 mb-4 resize-y`}
+                        name="planet">{
+                    planets.map(item => <option value={item} key={item}>{item}</option>)
+                }
+                </select>
+            </label>
+            <label className={`w-full text-red-color`}>Subject
+                <textarea className={`text-black border h-52 w-full p-3 border-[#ccc] rounded-[4px] mt-1.5 mb-4 resize-y`}
+                          name="subject" placeholder="Write something..."/>
+            </label>
+            <button
+                className={`bg-[#4CAF50] text-white py-3 px-5 border-none rounded-[4px] cursor-pointer hover:bg-[#45a049]`}
+                type="submit">Submit
+            </button>
+        </form>
+    );
+};
+
+export default Contact;
