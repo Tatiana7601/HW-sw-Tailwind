@@ -13,7 +13,16 @@ const NavItem = ({item}:Props) => {
 
     return (
         <Link to={`${item.route}/${hero}`}
-              className="nav-item btn btn-danger mx-1">{item.title}</Link>
+              className="inline-block
+              py-2 px-4
+              rounded
+              bg-[#DC3545] hover:bg-[#B02A37]
+              text-white
+              mx-1
+              cursor-pointer"
+              >
+            {item.title}
+        </Link>
     );
 };
 

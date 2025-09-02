@@ -3,7 +3,7 @@ import NavItem from "./NavItem.tsx";
 
 const Navigation = () => {
     return (
-        <nav className="fixed-top ms-5 mt-2">
+        <nav className="fixed top-0 left-0 right-0 ml-12 mt-2">
             <ul className="nav">
                 {navItems.map(item =>
                     <NavItem key={item.title} item={item}/>

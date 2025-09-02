@@ -63,7 +63,7 @@ const AboutMe = () => {
         <div className="my-8 flex justify-center">
             <div className="border-4 rounded-xl border-purple-950 hover:bg-white/25 p-6 shadow bg-white/15
                              text-center group w-full max-w-md
-                             hover:shadow-[0_8px_50px_20px_#FFE818] hover:scale-102 transition-all duration-300">
+                             hover:shadow-[0_0_20px_10px_rgba(255,232,24,0.3)] hover:scale-102 transition-all duration-300">
                 {heroFields.map((field) => (
                     <div key={field.label} className="mb-3">
                         <p className="font-semibold group-hover:text-yellow-400">{field.label}</p>

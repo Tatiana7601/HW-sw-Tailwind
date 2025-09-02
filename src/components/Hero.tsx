@@ -7,8 +7,8 @@ const Hero = () => {
 
 
     return (
-        <section className="float-start w-25">
-            <img className="w-100" src={characters[hero].img} alt="hero"/>
+        <section className="float-left w-1/4">
+            <img className="w-full" src={characters[hero].img} alt="hero"/>
         </section>
     );
 };
